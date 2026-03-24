@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H4CK3R CAMERA CONTROL AMEEN BHAI </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(45deg, #000, #0a0a0a, #1a0033);
+            color: #00ff00;
+            font-family: 'Orbitron', monospace;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: -1;
+            animation: matrix 10s linear infinite;
+        }
+        
+        @keyframes matrix {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .hacker-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+            animation: glitch 2s infinite;
+            margin-bottom: 30px;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        
+        .typing-container {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            position: relative;
+        }
+        
+        .typing-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            border-right: 3px solid #00ff00;
+            animation: blink 1s infinite;
+            min-height: 200px;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: #00ff00; }
+            51%, 100% { border-color: transparent; }
+        }
+        
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
+            animation: scan 3s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { top: 0%; opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        
+        .control-btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            text-transform: uppercase;
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+            background: linear-gradient(45deg, #ff3333, #ff0000);
+        }
+        
+        .status {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #00cc00;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @media (max-width: 768px) {
+            .hacker-title { font-size: 2rem; }
+            .typing-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg"></canvas>
+    
+    <div class="container">
+        <h1 class="hacker-title">REMOTE CAMERA HACK AMEEN BHAI</h1>
+        
+        <div class="typing-container">
+            <div class="scanline"></div>
+            <div class="typing-text" id="typewriter"></div>
+        </div>
+        
+        <button class="control-btn" onclick="activateHack()">
+            🔴 ACTIVATE CAMERA CONTROL
+        </button>
+        
+        <div class="status" id="status">WAITING FOR TARGET...</div>
+    </div>
+
+    <script>
+        const promptText = `KIA APE CHATTY HY KY APE APNAY DOST YA KESE AOR KA CAMERA APNAY MOBILE MY USE KRSKTY HY KIA YA POSSIBLE HY JE POSSIBLE HY MY APE KO VIDEO KY END MY LINK NICHAY DO GA YA APK DOGA PHLAY MERI BATE SUN LO  APE AIK LINK JENERATE KRY GI LAKIN V LINK APE APNAY DOST YA KESE AOR KO SENT KRTY HY TO V OPEN KRTY HE AUS KA CAMERA APE KY CONTROL MY AYJATA HY AOR V KIA KR RAH HH APE DESKTY CHAYE VO AMERICA MY HO YA ENGLAND MY HO YA UK MY HO APE PAKISTAN MY BITH KER CAMERA DEKSKTY HY YA AUS WQT USE KRNA JB APE KO KOI TANG KR RAHA HY YA BAR BAR APE KO COLLI KR RAHHY YA APE KY PICHAY PRGAYA HY AB MY APE KO LINK DERAHA HO GHLT USE NHI KRNA`;
+
+        const typewriter = document.getElementById('typewriter');
+        const status = document.getElementById('status');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < promptText.length) {
+                typewriter.textContent += promptText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 80);
+            } else {
+                status.textContent = "TARGET READY FOR ACCESS...";
+            }
+        }
+
+        function activateHack() {
+            status.textContent = "ACCESSING CAMERA FEED...";
+            status.style.color = "#ff0000";
+            
+            setTimeout(() => {
+                window.open('https://webcam360.org', '_blank');
+                status.textContent = "CAMERA CONTROL ACTIVE - LIVE FEED";
+            }, 1500);
+        }
+
+        // Start typing effect
+        typeWriter();
+
+        // Matrix background effect
+        const canvas = document.querySelector('.matrix-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "01ハックコード".split("");
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrix[Math.floor(Math.random() * matrix.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+    </script>
+</body>
+</html>
